@@ -1,11 +1,14 @@
 using ProjectMaui2.ViewModels;
-namespace ProjectMaui2.Views;
 
-public partial class LoginPage : ContentPage
+
+namespace ProjectMaui2.Views
 {
-    public LoginPage(LoginViewModel vm)
+    public partial class LoginPage : ContentPage
     {
-        InitializeComponent();
-        BindingContext = vm;
+        public LoginPage(LoginViewModel vm)
+        {
+            InitializeComponent();
+            BindingContext = vm;
+        }
     }
 }
