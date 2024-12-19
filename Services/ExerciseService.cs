@@ -1,6 +1,5 @@
 ﻿
 using System.Net.Http.Json;
-using ProjectMaui2;
 using ProjectMaui2.Models;
 
 namespace ProjectMaui2.Services
