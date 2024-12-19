@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SQLite;
 
 namespace ProjectMaui2.Models
 {
     internal class User
     {
+        [PrimaryKey, AutoIncrement]
+        public int UserId { get; set; }
+
+        [MaxLength(30), Unique]
+        public string Username { get; set; }
+
+        [MaxLength(50)]
+        public string Password { get; set; }
+
+        public string Role { get; set; }
     }
 }
