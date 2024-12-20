@@ -25,8 +25,8 @@ namespace ProjectMaui2
             builder.Services.AddSingleton<IConnectivity>(Connectivity.Current);
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddTransient<LoginPage>();
-            //builder.Services.AddTransient<ClientsPage>();
-            //builder.Services.AddTransient<ClientsViewModel>();
+            builder.Services.AddSingleton<ClientsPage>();
+            builder.Services.AddSingleton<ClientsViewModel>();
 
             builder.Services.AddSingleton<LocalDbService>();
             builder.Services.AddSingleton<ExerciseService>();

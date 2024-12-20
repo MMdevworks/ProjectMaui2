@@ -6,12 +6,15 @@ namespace ProjectMaui2.Services
 {
     public class LocalDbService
     {
-        private const string DB_NAME = "localdb_clients.db3";
+        //private const string DB_NAME = "localdb_clients.db3";
         private readonly SQLiteAsyncConnection connection;
         public LocalDbService()
         {
-            connection = new SQLiteAsyncConnection(Path.Combine(FileSystem.AppDataDirectory, DB_NAME));
-            connection.CreateTableAsync<Client>();
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "localdb_clientss.db3");
+
+            connection = new SQLiteAsyncConnection(dbPath);
+            Console.WriteLine("===========> Database path: " + dbPath);
+            connection.CreateTableAsync<Client>().Wait();
             //joined tables for future scalability
             //connection.CreateTableAsync<Exercise>();
         }

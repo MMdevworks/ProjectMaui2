@@ -21,24 +21,25 @@ namespace ProjectMaui2.ViewModels
         // create the folder path to store data (depending on device)
         public LoginViewModel()
         {
-            string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "localdb_users.db3");
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "localdb_users.db3");
+            Console.WriteLine("======================================================================> Database path users: " + dbPath);
             dbconnection = new SQLiteConnection(dbPath);
             dbconnection.CreateTable<User>();
 
-            AddTestUser();
+            //AddTestUser();
         }
 
         #region Test User
-        private void AddTestUser()
-        {
-            var hashedPassword = BCrypt.Net.BCrypt.HashPassword("password");
-            var testUser = new User
-            {
-                Username = "tester",
-                Password = hashedPassword
-            };
-            dbconnection.Insert(testUser);
-        }
+        //private void AddTestUser()
+        //{
+        //    var hashedPassword = BCrypt.Net.BCrypt.HashPassword("password");
+        //    var testUser = new User
+        //    {
+        //        Username = "tester",
+        //        Password = hashedPassword
+        //    };
+        //    dbconnection.Insert(testUser);
+        //}
         #endregion
         [RelayCommand]
         private async Task OnLoginAsync()

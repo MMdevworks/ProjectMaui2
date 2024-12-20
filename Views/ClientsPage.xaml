@@ -2,11 +2,68 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProjectMaui2.Views.ClientsPage"
-             Title="ClientsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:model="clr-namespace:ProjectMaui2.Models"
+             xmlns:viewModel="clr-namespace:ProjectMaui2.ViewModels"
+             x:DataType="viewModel:ClientsViewModel"          
+             Title="{Binding Title}">
+    
+    <Grid ColumnDefinitions="*,*" ColumnSpacing="5" RowDefinitions="Auto,*" RowSpacing="0">
+
+        <!--add form-->
+        <VerticalStackLayout Grid.Row="0" Grid.ColumnSpan="2" Padding="10" FlexLayout.Basis="400" BackgroundColor="LightGray" IsVisible="{Binding IsFormVisible}">
+            <Entry Placeholder="Name" Text="{Binding Name}" BackgroundColor="White"/>
+            <Entry Placeholder="Email" Text="{Binding Email}" BackgroundColor="White"/>
+            <Entry Placeholder="Mobile" Text="{Binding Mobile}" BackgroundColor="White"/>
+            <Entry Placeholder="Notes" BackgroundColor="White"/>
+            <Button Text="Save" Command="{Binding SaveClientCommand}"/>
+        </VerticalStackLayout>
+
+        <!--item after client is added form, use client model-->
+        <ListView x:Name="listView" Grid.Row="1" BackgroundColor="White" Grid.ColumnSpan="2" 
+                  ItemsSource="{Binding Clients}" 
+                  SelectedItem="{Binding SelectedClient, Mode=TwoWay}"
+                  HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="model:Client">
+                    <ViewCell>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Reveal">
+                                    <SwipeItem Text="Edit"
+                                       BackgroundColor="Blue"
+                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainViewModel}}, Path=EditCommand}"
+                                       CommandParameter="{Binding .}" />
+                                    <SwipeItem Text="Delete"
+                                       BackgroundColor="Red"
+                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainViewModel}}, Path=DeleteCommand}"
+                                       CommandParameter="{Binding .}" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <VerticalStackLayout Padding="5">
+                                <VerticalStackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainViewModel}}, Path=ClientTappedCommand}" CommandParameter="{Binding .}"/>
+                                </VerticalStackLayout.GestureRecognizers>
+                                <Label Text="{Binding Name}" FontSize="17" FontAttributes="Bold"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="{Binding Email}"/>
+                                    <Label Grid.Column="2" Text="{Binding Mobile}" FontAttributes="Bold"/>
+                                </Grid>
+                            </VerticalStackLayout>
+
+                        </SwipeView>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!--add btn-->
+        <Button Text="Add Client" Command="{Binding AddClientCommand}" Grid.Row="2" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="End" IsVisible="{Binding IsAddBtnVisible}"/>
+
+    </Grid>
 </ContentPage>
