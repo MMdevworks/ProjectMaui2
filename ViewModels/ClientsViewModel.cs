@@ -41,8 +41,8 @@ namespace ProjectMaui2.ViewModels
 
         public ObservableCollection<Client> Clients { get; } = new();
 
-        public ICommand EditCommand => new RelayCommand<Client>(EditClient);
-        public ICommand DeleteCommand => new RelayCommand<Client>(async (client) => await DeleteClient(client));
+        public ICommand EditClientCommand => new RelayCommand<Client>(EditClient);
+        public ICommand DeleteClientCommand => new RelayCommand<Client>(async (client) => await DeleteClient(client));
 
         public ICommand ClientTappedCommand => new AsyncRelayCommand<Client>(OnClientTapped);
         public ClientsViewModel(LocalDbService localService)

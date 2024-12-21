@@ -19,6 +19,7 @@
         </VerticalStackLayout>
 
         <!--item after client is added form, use client model-->
+        <!--had to use explicit binding because of the client model itemsource, program would try to look in client model instead of clientsviewmodel-->
         <ListView x:Name="listView" Grid.Row="1" BackgroundColor="White" Grid.ColumnSpan="2" 
                   ItemsSource="{Binding Clients}" 
                   SelectedItem="{Binding SelectedClient, Mode=TwoWay}"
@@ -31,11 +32,11 @@
                                 <SwipeItems Mode="Reveal">
                                     <SwipeItem Text="Edit"
                                        BackgroundColor="Blue"
-                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainViewModel}}, Path=EditCommand}"
+                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ClientsViewModel}}, Path=EditClientCommand}"
                                        CommandParameter="{Binding .}" />
                                     <SwipeItem Text="Delete"
                                        BackgroundColor="Red"
-                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainViewModel}}, Path=DeleteCommand}"
+                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ClientsViewModel}}, Path=DeleteClientCommand}"
                                        CommandParameter="{Binding .}" />
                                 </SwipeItems>
                             </SwipeView.RightItems>
