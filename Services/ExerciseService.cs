@@ -32,13 +32,13 @@ namespace ProjectMaui2.Services
             return response; 
         }
 
-        //public async Task<List<Exercise>> GetExercise(string muscle)
-        //{
-        //    if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
-        //        throw new InvalidOperationException("No internet connection.");
+        public async Task<List<Exercise>> GetExercise(string muscle)
+        {
+            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+                throw new InvalidOperationException("No internet connection.");
 
-        //    var response = await httpClient.GetFromJsonAsync<List<Exercise>>($"exercises?muscle={muscle}");
-        //    return response ?? new List<Exercise>();
-        //}
+            var response = await httpClient.GetFromJsonAsync<List<Exercise>>($"exercises?muscle={muscle}");
+            return response ?? new List<Exercise>();
+        }
     }
 }

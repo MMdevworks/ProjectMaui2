@@ -127,7 +127,7 @@ namespace ProjectMaui2.ViewModels
                 if (client != null)
                 {
                     Debug.WriteLine($"==============>  On Tapped go to details page for: {client.Name} {client.Id}");
-                    await Shell.Current.GoToAsync($"/ClientDetailsPage?clientId={client.Id}");
+                    await Shell.Current.GoToAsync($"///ClientDetailsPage?clientId={client.Id}");
                     await Task.CompletedTask;
                 }
             }

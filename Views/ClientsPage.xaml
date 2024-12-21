@@ -42,7 +42,7 @@
 
                             <VerticalStackLayout Padding="5">
                                 <VerticalStackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainViewModel}}, Path=ClientTappedCommand}" CommandParameter="{Binding .}"/>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ClientsViewModel}}, Path=ClientTappedCommand}" CommandParameter="{Binding .}"/>
                                 </VerticalStackLayout.GestureRecognizers>
                                 <Label Text="{Binding Name}" FontSize="17" FontAttributes="Bold"/>
                                 <Grid>
