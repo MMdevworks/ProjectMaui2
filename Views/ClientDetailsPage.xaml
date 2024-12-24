@@ -19,7 +19,33 @@
             <Label Text="{Binding Client.Mobile}" />
             <Label Text="{Binding Client.Email}" />
             <Label Text="{Binding Client.Notes}" />
+            <StackLayout.GestureRecognizers>
+                <SwipeGestureRecognizer Direction="Right" Swiped="OnSwipeBack"/>
+            </StackLayout.GestureRecognizers>
         </StackLayout>
+
+
+
+        <!-- Client's Exercises Section -->
+        <ScrollView Grid.Row="1">
+            <CollectionView ItemsSource="{Binding ClientExercises}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Exercise">
+                        <Grid Padding="10">
+                            <Frame HeightRequest="125" Padding="0">
+                                <Grid Padding="0" ColumnDefinitions="125,*">
+                                    <VerticalStackLayout Grid.Column="1" Padding="10" VerticalOptions="Center">
+                                        <Label Text="{Binding name}" FontAttributes="Bold" FontSize="Medium"/>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+
+
 
         <!-- Exercises Section -->
         <ScrollView Grid.Row="1">

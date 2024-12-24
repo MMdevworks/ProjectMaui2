@@ -17,6 +17,9 @@ namespace ProjectMaui2.ViewModels
 
         public ObservableCollection<Exercise> Exercises { get; } = new();
 
+        public ObservableCollection<Exercise> ClientExercises { get; } = new();
+
+
         [ObservableProperty]
         private Client client;
 
@@ -57,6 +60,11 @@ namespace ProjectMaui2.ViewModels
                 if (clientId != 0)
                 {
                     Client = await localDbService.GetClientById(clientId);
+                    ClientExercises.Clear();
+                    if (Client.Exercises != null)
+                    {
+                        foreach (var exercise in Client.Exercises) { ClientExercises.Add(exercise); }
+                    }
                 }
             }
             catch (Exception ex)
@@ -99,6 +107,43 @@ namespace ProjectMaui2.ViewModels
                 IsBusy = false;
             }
         }
+
+        [RelayCommand]
+        async Task AddExerciseToClientAsync(Exercise exercise)
+        {
+            Debug.WriteLine($"Client is null: {Client == null}");
+            Debug.WriteLine($"Exercise is null: {exercise == null}");
+            Debug.WriteLine($"Client.Exercises is null: {Client?.Exercises == null}");
+            if (Client == null || exercise == null) return;
+
+            if (Client.Exercises == null)
+            {
+                Debug.WriteLine("Initializing Exercises list");
+                Client.Exercises = new List<Exercise>();
+            }
+
+            Debug.WriteLine("Before adding exercise to client:");
+            Client.Exercises.Add(exercise);
+            ClientExercises.Add(exercise);
+            Debug.WriteLine("After adding exercise to client:");
+
+            await localDbService.UpdateClient(Client);
+
+            // Reset picker and clear the exercises
+            Muscle = null;
+            Exercises.Clear();
+
+            // Refresh display of client ex
+            ClientExercises.Clear();
+            foreach (var ex in Client.Exercises)
+            {
+                ClientExercises.Add(ex);
+            }
+
+            await Shell.Current.DisplayAlert("Success", "Exercise added to client.", "OK");
+        }
+
+
 
         //[RelayCommand]
         //async Task GoToDetailsAsync(Exercise exercise)

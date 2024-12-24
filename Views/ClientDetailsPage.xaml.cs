@@ -9,6 +9,11 @@ public partial class ClientDetailsPage : ContentPage
 		InitializeComponent();
         BindingContext = vm;
     }
+
+    private async void OnSwipeBack(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("///ClientsPage");
+    }
     //protected override void OnAppearing()
     //{
     //    base.OnAppearing();

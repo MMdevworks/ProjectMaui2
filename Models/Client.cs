@@ -6,6 +6,11 @@ namespace ProjectMaui2.Models
     [Table("client")]
     public class Client
     {
+        public Client() 
+        {
+            Exercises = new List<Exercise>();
+        }
+
         [PrimaryKey, AutoIncrement]
        
         [Column("id")]
@@ -33,7 +38,7 @@ namespace ProjectMaui2.Models
         public string ExerciseListJson
         {
             get => JsonConvert.SerializeObject(Exercises);
-            set => Exercises = JsonConvert.DeserializeObject<List<Exercise>>(value);
+            set => Exercises = string.IsNullOrWhiteSpace(value) ? new List<Exercise>() : JsonConvert.DeserializeObject<List<Exercise>>(value);
         }
     }
 }
