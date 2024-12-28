@@ -29,6 +29,15 @@ namespace ProjectMaui2.Services
             return await connection.Table<Client>().Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
+        //client by trainer id 
+        //public Task<List<Client>> GetClientsByTrainerId(int trainerId)
+        //{
+        //    return Task.Run(() =>
+        //    {
+        //        return connection.Table<Client>().Where(c => c.TrainerId == trainerId).ToListAsync();
+        //    });
+        //}
+
         public async Task CreateClient(Client client)
         {
             await connection.InsertAsync(client);

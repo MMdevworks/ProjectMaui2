@@ -64,7 +64,19 @@ namespace ProjectMaui2.ViewModels
             Notes = string.Empty;
         }
 
+        //private async Task LoadClientsAsync()
+        //{
+        //    int trainerId = 1; //implement session management for current user details (App.CurrentUser.Id)
+        //    var clients = await localDbService.GetClientsByTrainerId(trainerId);
+        //    Clients.Clear();
+        //    foreach (var client in clients)
+        //    {
+        //        Clients.Add(client);
+        //    }
+        //}
+
         [RelayCommand]
+
         private async Task LoadClientsAsync()
         {
             var clients = await localDbService.GetClients();
@@ -91,9 +103,7 @@ namespace ProjectMaui2.ViewModels
                         Name = Name,
                         Email = Email,
                         Mobile = Mobile,
-                        Notes = Notes,
-                        //change list later
-                        //Exercises = new List<Exercise>()
+                        Notes = Notes
                     });
                 }
                 else //add
@@ -103,11 +113,9 @@ namespace ProjectMaui2.ViewModels
                         Name = Name,
                         Email = Email,
                         Mobile = Mobile,
-                        Notes = Notes,
-                        //Exercises = new List<Exercise>()
+                        Notes = Notes                       
                     });
                 }
-
                 // hide form and reload
                 IsFormVisible = false;
                 IsAddBtnVisible = true;

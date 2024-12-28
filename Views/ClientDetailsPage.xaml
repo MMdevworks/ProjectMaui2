@@ -24,18 +24,19 @@
             </StackLayout.GestureRecognizers>
         </StackLayout>
 
-
-
         <!-- Client's Exercises Section -->
         <ScrollView Grid.Row="1">
             <CollectionView ItemsSource="{Binding ClientExercises}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Exercise">
-                        <Grid Padding="10">
-                            <Frame HeightRequest="125" Padding="0">
+                        <Grid Padding="0">
+                            <Frame HeightRequest="110" Padding="0">
                                 <Grid Padding="0" ColumnDefinitions="125,*">
-                                    <VerticalStackLayout Grid.Column="1" Padding="10" VerticalOptions="Center">
+                                    <VerticalStackLayout Grid.Column="0" Grid.ColumnSpan="2" Padding="10" VerticalOptions="Center">
                                         <Label Text="{Binding name}" FontAttributes="Bold" FontSize="Medium"/>
+                                        <Label Text="{Binding difficulty}"/>
+                                        <!--TODO: add delete-->
+                                        <Button Text="-" FontAttributes="Bold" HorizontalOptions="End" VerticalOptions="Center" Padding="0" HeightRequest="25" WidthRequest="25" />
                                     </VerticalStackLayout>
                                 </Grid>
                             </Frame>
@@ -45,22 +46,21 @@
             </CollectionView>
         </ScrollView>
 
-
-
         <!-- Exercises Section -->
         <ScrollView Grid.Row="1">
             <CollectionView ItemsSource="{Binding Exercises}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Exercise">
-                        <Grid Padding="10">
-                            <Frame HeightRequest="125" Padding="0">
+                        <Grid Padding="0">
+                            <Frame HeightRequest="110" Padding="0">
                                 <Frame.GestureRecognizers>
+                                    <!--TODO: add ex details page-->
                                     <TapGestureRecognizer CommandParameter="{Binding .}"
                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ClientDetailsViewModel}}, Path=GoToDetailsCommand}"/>
                                 </Frame.GestureRecognizers>
 
                                 <Grid Padding="0" ColumnDefinitions="125,*">
-                                    <VerticalStackLayout Grid.Column="1" Padding="10" VerticalOptions="Center">
+                                    <VerticalStackLayout Grid.Column="0" Grid.ColumnSpan="2" Padding="10" VerticalOptions="Center">
                                         <Label Text="{Binding name}" FontAttributes="Bold" FontSize="Medium"/>
                                         <Label Text="{Binding difficulty}"/>
                                         <Button Text="+" FontAttributes="Bold"

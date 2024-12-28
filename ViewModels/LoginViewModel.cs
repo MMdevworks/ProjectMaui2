@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using ProjectMaui2.Models;
 using SQLite;
+using System.Diagnostics;
 
 namespace ProjectMaui2.ViewModels
 {
@@ -27,6 +28,7 @@ namespace ProjectMaui2.ViewModels
             dbconnection.CreateTable<User>();
 
             //AddTestUser();
+            //AddTestClient();
         }
 
         #region Test User
@@ -40,7 +42,61 @@ namespace ProjectMaui2.ViewModels
         //    };
         //    dbconnection.Insert(testUser);
         //}
+
+        //private void AddTestClient()
+        //{
+        //    var hashedPassword = BCrypt.Net.BCrypt.HashPassword("password");
+        //    var testUser = new User
+        //    {
+        //        Username = "clienttester",
+        //        Password = hashedPassword,
+        //        Role = "client"
+        //    };
+        //    dbconnection.Insert(testUser);
+        //    int trainerId = 0;
+        //    var client = new Client
+        //    {
+        //        Name = "Test Client",
+        //        Mobile = "111-222-3333",
+        //        Email = "test@email.com",
+        //        Notes = "Testing",
+        //        TrainerId = trainerId,
+        //        Exercises = new List<Exercise>()
+        //    };
+        //    dbconnection.Insert(client);
+        //}
         #endregion
+        #region multiuser login
+        //private async Task OnLoginAsync()
+        //{
+
+        //    if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
+        //    {
+        //        ErrorMessage = "Please enter a username and password.";
+        //        return;
+        //    }
+
+        //    var user = dbconnection.Table<User>().FirstOrDefault(u => u.Username == Username);
+        //    if (user != null && BCrypt.Net.BCrypt.Verify(Password, user.Password))
+        //    {
+
+        //        ErrorMessage = string.Empty;
+        //        if (user.Role == "client")
+        //        {
+        //            await Shell.Current.GoToAsync("///ClientDashboardPage");
+        //        }
+        //        else
+        //        {
+        //            await Shell.Current.GoToAsync("///ClientsPage");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        ErrorMessage = "Invalid username or password.";
+        //    }
+        //} 
+        #endregion
+
         [RelayCommand]
         private async Task OnLoginAsync()
         {

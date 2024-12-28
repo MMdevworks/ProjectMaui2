@@ -143,8 +143,6 @@ namespace ProjectMaui2.ViewModels
             await Shell.Current.DisplayAlert("Success", "Exercise added to client.", "OK");
         }
 
-
-
         //[RelayCommand]
         //async Task GoToDetailsAsync(Exercise exercise)
         //{
