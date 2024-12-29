@@ -45,6 +45,7 @@ namespace ProjectMaui2.ViewModels
         public ICommand DeleteClientCommand => new RelayCommand<Client>(async (client) => await DeleteClient(client));
 
         public ICommand ClientTappedCommand => new AsyncRelayCommand<Client>(OnClientTapped);
+
         public ClientsViewModel(LocalDbService localService)
         {
             Title = "Clients";
@@ -76,7 +77,6 @@ namespace ProjectMaui2.ViewModels
         //}
 
         [RelayCommand]
-
         private async Task LoadClientsAsync()
         {
             var clients = await localDbService.GetClients();

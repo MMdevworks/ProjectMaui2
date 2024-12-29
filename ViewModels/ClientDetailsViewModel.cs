@@ -34,6 +34,9 @@ namespace ProjectMaui2.ViewModels
                 Task.Run(() => LoadClientDetailsAsync());
             }
         }
+        
+        [ObservableProperty]
+        private bool isClientExerciseListVisible = true;
 
         [ObservableProperty]
         private string muscle;
@@ -91,6 +94,7 @@ namespace ProjectMaui2.ViewModels
                 }
                 IsBusy = true;
                 Exercises.Clear();
+                IsClientExerciseListVisible = false;
 
                 string formattedMuscle = Muscle.Replace(" ", "_").ToLower();
                 var exercises = await exerciseService.GetExercise(formattedMuscle);
@@ -111,9 +115,9 @@ namespace ProjectMaui2.ViewModels
         [RelayCommand]
         async Task AddExerciseToClientAsync(Exercise exercise)
         {
-            Debug.WriteLine($"Client is null: {Client == null}");
-            Debug.WriteLine($"Exercise is null: {exercise == null}");
-            Debug.WriteLine($"Client.Exercises is null: {Client?.Exercises == null}");
+            //Debug.WriteLine($"Client is null: {Client == null}");
+            //Debug.WriteLine($"Exercise is null: {exercise == null}");
+            //Debug.WriteLine($"Client.Exercises is null: {Client?.Exercises == null}");
             if (Client == null || exercise == null) return;
 
             if (Client.Exercises == null)
@@ -132,6 +136,7 @@ namespace ProjectMaui2.ViewModels
             // Reset picker and clear the exercises
             Muscle = null;
             Exercises.Clear();
+            IsClientExerciseListVisible = true;
 
             // Refresh display of client ex
             ClientExercises.Clear();
@@ -143,6 +148,7 @@ namespace ProjectMaui2.ViewModels
             await Shell.Current.DisplayAlert("Success", "Exercise added to client.", "OK");
         }
 
+        //TODO: Fix delete
         [RelayCommand]
         async Task DeleteExerciseFromClientAsync(Exercise exercise)
         {
@@ -163,6 +169,7 @@ namespace ProjectMaui2.ViewModels
             {
                 ClientExercises.Add(ex);
             }
+
             await Shell.Current.DisplayAlert("Success", "Exercise deleted from client.", "OK");
         }
 

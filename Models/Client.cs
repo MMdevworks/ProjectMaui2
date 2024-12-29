@@ -3,7 +3,6 @@ using SQLite;
 
 namespace ProjectMaui2.Models
 {
-    //[Table("client")]
     public class Client
     {
         public Client() 

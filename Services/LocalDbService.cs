@@ -6,7 +6,6 @@ namespace ProjectMaui2.Services
 {
     public class LocalDbService
     {
-        //private const string DB_NAME = "localdb_clients.db3";
         private readonly SQLiteAsyncConnection connection;
         public LocalDbService()
         {
@@ -15,10 +14,8 @@ namespace ProjectMaui2.Services
             connection = new SQLiteAsyncConnection(dbPath);
             Console.WriteLine("===========> Database path: " + dbPath);
             connection.CreateTableAsync<Client>().Wait();
-            //joined tables for future scalability
-            //connection.CreateTableAsync<Exercise>();
         }
-        // todo try catch
+    
         public async Task<List<Client>> GetClients()
         {
             return await connection.Table<Client>().ToListAsync();
@@ -40,16 +37,38 @@ namespace ProjectMaui2.Services
 
         public async Task CreateClient(Client client)
         {
-            await connection.InsertAsync(client);
+            try
+            {
+                await connection.InsertAsync(client);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Error occured on client insert", ex);
+            }
         }
 
         public async Task UpdateClient(Client client)
         {
-            await connection.UpdateAsync(client);
+            try
+            {
+                await connection.UpdateAsync(client);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Error occured on client update", ex);
+            }
         }
+
         public async Task DeleteClient(Client client)
         {
-            await connection.DeleteAsync(client);
+            try
+            {
+                await connection.DeleteAsync(client);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Error occured on client delete", ex);
+            }
         }
 
         public async Task AddExerciseToClientAsync(int clientId, Exercise exercise)

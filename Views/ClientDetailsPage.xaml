@@ -9,47 +9,36 @@
     <Grid Padding="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        
         <!-- Client Details Section -->
         <StackLayout Grid.Row="0" Spacing="10">
-            <Label Text="{Binding Client.Name}" />
-            <Label Text="{Binding Client.Mobile}" />
-            <Label Text="{Binding Client.Email}" />
+            <Label Text="{Binding Client.Name}" FontSize="Medium" FontAttributes="Bold"/>
+            <Label Text="{Binding Client.Mobile}"/>
+            <Label Text="{Binding Client.Email}"/>
             <Label Text="{Binding Client.Notes}" />
             <StackLayout.GestureRecognizers>
                 <SwipeGestureRecognizer Direction="Right" Swiped="OnSwipeBack"/>
             </StackLayout.GestureRecognizers>
         </StackLayout>
+        
+        <!-- Muscle Picker and Activity Indicator -->
+        <StackLayout Grid.Row="1" Spacing="10">
+            <Picker  Title="Select Muscle"
+                     ItemsSource="{Binding FormattedMuscleList}" 
+                     SelectedItem="{Binding Muscle}"/>
 
-        <!-- Client's Exercises Section -->
-        <ScrollView Grid.Row="1">
-            <CollectionView ItemsSource="{Binding ClientExercises}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Exercise">
-                        <Grid Padding="0">
-                            <Frame HeightRequest="110" Padding="0">
-                                <Grid Padding="0" ColumnDefinitions="125,*">
-                                    <VerticalStackLayout Grid.Column="0" Grid.ColumnSpan="2" Padding="10" VerticalOptions="Center">
-                                        <Label Text="{Binding name}" FontAttributes="Bold" FontSize="Medium"/>
-                                        <Label Text="{Binding difficulty}"/>
-                                        <!--TODO: add delete-->
-                                        <Button Text="-" FontAttributes="Bold" HorizontalOptions="End" VerticalOptions="Center" Padding="0" HeightRequest="25" WidthRequest="25" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ClientDetailsViewModel}}, Path=DeleteExerciseFromClientCommand}" CommandParameter="{Binding .}" />
-                                    </VerticalStackLayout>
-                                </Grid>
-                            </Frame>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </ScrollView>
-
+            <ActivityIndicator HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" 
+                               IsVisible="{Binding IsBusy}"
+                               IsRunning="{Binding IsBusy}"/>
+        </StackLayout>
+        
         <!-- Exercises Section -->
-        <ScrollView Grid.Row="1">
-            <CollectionView ItemsSource="{Binding Exercises}">
+        <!--<ScrollView Grid.Row="1">-->
+            <CollectionView Grid.Row="2" ItemsSource="{Binding Exercises}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Exercise">
                         <Grid Padding="0">
@@ -74,17 +63,28 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </ScrollView>
+        <!--</ScrollView>-->
 
-        <!-- Muscle Picker and Activity Indicator -->
-        <StackLayout Grid.Row="2" Spacing="10">
-            <Picker Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Title="Select Muscle" 
-                     ItemsSource="{Binding FormattedMuscleList}" 
-                     SelectedItem="{Binding Muscle}" />
+        <!-- Client's Exercises Section -->
+        <!--<ScrollView Grid.Row="1">-->
+            <CollectionView Grid.Row="2" ItemsSource="{Binding ClientExercises}" IsVisible="{Binding IsClientExerciseListVisible}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Exercise">
+                        <Grid Padding="0">
+                            <Frame HeightRequest="110" Padding="0">
+                                <Grid Padding="0" ColumnDefinitions="125,*">
+                                    <VerticalStackLayout Grid.Column="0" Grid.ColumnSpan="2" Padding="10" VerticalOptions="Center">
+                                        <Label Text="{Binding name}" FontAttributes="Bold" FontSize="Medium"/>
+                                        <Label Text="{Binding difficulty}"/>
+                                        <Button Text="-" FontAttributes="Bold" HorizontalOptions="End" VerticalOptions="Center" Padding="0" HeightRequest="25" WidthRequest="25" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ClientDetailsViewModel}}, Path=DeleteExerciseFromClientCommand}" CommandParameter="{Binding .}" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        <!--</ScrollView>-->
 
-            <ActivityIndicator Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" 
-                               IsVisible="{Binding IsBusy}"
-                               IsRunning="{Binding IsBusy}"/>
-        </StackLayout>
     </Grid>
 </ContentPage>
