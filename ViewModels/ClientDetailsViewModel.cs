@@ -143,6 +143,29 @@ namespace ProjectMaui2.ViewModels
             await Shell.Current.DisplayAlert("Success", "Exercise added to client.", "OK");
         }
 
+        [RelayCommand]
+        async Task DeleteExerciseFromClientAsync(Exercise exercise)
+        {
+            Debug.WriteLine("=====> DELETE FROM CLIENT CLICKED");
+            if (Client == null || exercise == null) return;
+
+            var exerciseToRemove = Client.Exercises.FirstOrDefault(e => e.Id == exercise.Id);
+            if (exerciseToRemove != null)
+            {
+                Client.Exercises.Remove(exerciseToRemove);
+                ClientExercises.Remove(exerciseToRemove);
+            }
+
+            await localDbService.UpdateClient(Client);
+
+            ClientExercises.Clear();
+            foreach (var ex in Client.Exercises)
+            {
+                ClientExercises.Add(ex);
+            }
+            await Shell.Current.DisplayAlert("Success", "Exercise deleted from client.", "OK");
+        }
+
         //[RelayCommand]
         //async Task GoToDetailsAsync(Exercise exercise)
         //{
