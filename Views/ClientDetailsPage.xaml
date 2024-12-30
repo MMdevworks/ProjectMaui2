@@ -37,7 +37,6 @@
         </StackLayout>
         
         <!-- Exercises Section -->
-        <!--<ScrollView Grid.Row="1">-->
             <CollectionView Grid.Row="2" ItemsSource="{Binding Exercises}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Exercise">
@@ -63,10 +62,8 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        <!--</ScrollView>-->
 
         <!-- Client's Exercises Section -->
-        <!--<ScrollView Grid.Row="1">-->
             <CollectionView Grid.Row="2" ItemsSource="{Binding ClientExercises}" IsVisible="{Binding IsClientExerciseListVisible}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Exercise">
@@ -84,7 +81,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        <!--</ScrollView>-->
 
     </Grid>
 </ContentPage>

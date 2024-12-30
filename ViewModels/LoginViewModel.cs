@@ -23,7 +23,6 @@ namespace ProjectMaui2.ViewModels
         public LoginViewModel()
         {
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, "localdb_users.db3");
-            Console.WriteLine("======================================================================> Database path users: " + dbPath);
             dbconnection = new SQLiteConnection(dbPath);
             dbconnection.CreateTable<User>();
 
