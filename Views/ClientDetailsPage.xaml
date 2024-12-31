@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProjectMaui2.Views.ClientDetailsPage"
+             xmlns:model="clr-namespace:ProjectMaui2.Models"
+             xmlns:viewModel="clr-namespace:ProjectMaui2.ViewModels"
+             x:DataType="viewModel:ClientDetailsViewModel">
+
+    <Grid Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Client Details Section -->
+        <StackLayout Grid.Row="0" Spacing="10">
+            <Label Text="{Binding Client.Name}" FontSize="Medium" FontAttributes="Bold"/>
+            <Label Text="{Binding Client.Mobile}"/>
+            <Label Text="{Binding Client.Email}"/>
+            <Label Text="{Binding Client.Notes}" />
+            <StackLayout.GestureRecognizers>
+                <SwipeGestureRecognizer Direction="Right" Swiped="OnSwipeBack"/>
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+        
+        <!-- Muscle Picker and Activity Indicator -->
+        <StackLayout Grid.Row="1" Spacing="10">
+            <Picker  Title="Select Muscle"
+                     ItemsSource="{Binding FormattedMuscleList}" 
+                     SelectedItem="{Binding Muscle}"/>
+
+            <ActivityIndicator HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" 
+                               IsVisible="{Binding IsBusy}"
+                               IsRunning="{Binding IsBusy}"/>
+        </StackLayout>
+        
+        <!-- Exercises Section -->
+            <CollectionView Grid.Row="2" ItemsSource="{Binding Exercises}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Exercise">
+                        <Grid Padding="0">
+                            <Frame HeightRequest="110" Padding="0">
+                                <Frame.GestureRecognizers>
+                                    <!--TODO: add ex details page-->
+                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ClientDetailsViewModel}}, Path=GoToDetailsCommand}"/>
+                                </Frame.GestureRecognizers>
+
+                                <Grid Padding="0" ColumnDefinitions="125,*">
+                                    <VerticalStackLayout Grid.Column="0" Grid.ColumnSpan="2" Padding="10" VerticalOptions="Center">
+                                        <Label Text="{Binding name}" FontAttributes="Bold" FontSize="Medium"/>
+                                        <Label Text="{Binding difficulty}"/>
+                                        <Button Text="+" FontAttributes="Bold"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ClientDetailsViewModel}}, Path=AddExerciseToClientCommand}"
+                                            CommandParameter="{Binding .}" HorizontalOptions="End" VerticalOptions="Center" Padding="0" HeightRequest="25" WidthRequest="25" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        <!-- Client's Exercises Section -->
+            <CollectionView Grid.Row="2" ItemsSource="{Binding ClientExercises}" IsVisible="{Binding IsClientExerciseListVisible}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Exercise">
+                        <Grid Padding="0">
+                            <Frame HeightRequest="110" Padding="0">
+                                <Grid Padding="0" ColumnDefinitions="125,*">
+                                    <VerticalStackLayout Grid.Column="0" Grid.ColumnSpan="2" Padding="10" VerticalOptions="Center">
+                                        <Label Text="{Binding name}" FontAttributes="Bold" FontSize="Medium"/>
+                                        <Label Text="{Binding difficulty}"/>
+                                        <Button Text="-" FontAttributes="Bold" HorizontalOptions="End" VerticalOptions="Center" Padding="0" HeightRequest="25" WidthRequest="25" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ClientDetailsViewModel}}, Path=DeleteExerciseFromClientCommand}" CommandParameter="{Binding .}" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+    </Grid>
+</ContentPage>
