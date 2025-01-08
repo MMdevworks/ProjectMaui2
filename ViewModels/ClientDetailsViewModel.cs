@@ -145,7 +145,7 @@ namespace ProjectMaui2.ViewModels
                 ClientExercises.Add(ex);
             }
 
-            await Shell.Current.DisplayAlert("Success", "Exercise added to client.", "OK");
+            await Shell.Current.DisplayAlert("Success", "Exercise added to client's routine.", "OK");
         }
 
         //TODO: Fix delete
