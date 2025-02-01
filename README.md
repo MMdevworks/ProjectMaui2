@@ -1,3 +1,4 @@
+<a id="readme-top"></a>
 # ProjectMaui: StrideSync
 
 ## Video Preview:
