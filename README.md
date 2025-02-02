@@ -10,7 +10,7 @@ StrideSync is a fitness trainer app for managing individual client routines.
 It is a .NET MAUI application using MVVM Design Pattern, SqLite Db, and external web service API. 
 The app was tested on Android devices.
 
-<b>Project Goal:</b> API integration using a Mobile platform, explore MVVM architecture
+<b>Project Objective:</b> API integration using a Mobile platform, explore MVVM architecture
 
 ### Built With
 [![Csharp][csharp-badge]][csharp-url]
@@ -68,7 +68,7 @@ The app was tested on Android devices.
    ```
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Back to top</a>)</p>
 
 [maui-badge]: https://img.shields.io/badge/.NET_MAUI-512BD4?style=for-the-badge&logo=dotnet&logoColor=white
 [maui-url]: https://learn.microsoft.com/en-us/dotnet/maui
